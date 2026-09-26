@@ -1,0 +1,36 @@
+:root { font-family: Georgia, "Times New Roman", serif; color: #172321; background: #e8e6dd; font-synthesis: none; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+.page-shell { min-height: 100vh; padding: 34px clamp(22px, 7vw, 110px) 72px; background: radial-gradient(circle at 90% 10%, #c7d5c5 0, transparent 28%), #e8e6dd; }
+.masthead { display: flex; align-items: flex-start; justify-content: space-between; border-bottom: 1px solid #9ba89e; padding-bottom: 22px; }
+.eyebrow, .kicker, .status-dot, .result-meta b, .privacy-note { font: 600 11px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .08em; text-transform: uppercase; }
+.masthead h1 { font-size: clamp(18px, 2.5vw, 29px); font-weight: 400; margin: 12px 0 0; }
+.status-dot { color: #346c4b; padding-top: 7px; }
+.status-dot::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 8px; background: #4f9b69; border-radius: 50%; }
+.content-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 1fr); gap: clamp(42px, 10vw, 160px); max-width: 1120px; margin: 80px auto 0; }
+.intro { max-width: 460px; }
+.kicker { color: #6d786d; margin: 0 0 18px; }
+.intro h2, .result h2 { font-size: clamp(36px, 5vw, 66px); font-weight: 400; line-height: .98; letter-spacing: -.02em; margin: 0; }
+.lede { color: #53615a; font: 17px/1.5 Georgia, serif; max-width: 380px; margin: 28px 0 62px; }
+.signal { display: flex; gap: 20px; border-top: 1px solid #aeb7ad; padding: 15px 0; max-width: 390px; }
+.signal span { color: #729077; font: 12px ui-monospace, monospace; }
+.signal p { margin: 0; font-size: 15px; line-height: 1.35; }
+.complaint-form { background: #f3f1e9; border-top: 3px solid #172321; padding: 29px clamp(22px, 4vw, 42px) 34px; box-shadow: 12px 15px 0 #cbd3c7; }
+label { display: block; color: #34443b; font: 600 12px ui-monospace, monospace; text-transform: uppercase; letter-spacing: .04em; }
+label span { color: #87928a; font-weight: 400; text-transform: none; }
+input, textarea { display: block; width: 100%; margin-top: 10px; border: 1px solid #b8c0b7; border-radius: 0; background: #fbfaf5; color: #172321; font: 16px Georgia, serif; padding: 14px; outline: none; }
+textarea { min-height: 150px; resize: vertical; }
+input:focus, textarea:focus { border-color: #42634d; box-shadow: 0 0 0 2px #b6cbb8; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 22px; }
+button { display: flex; width: 100%; justify-content: space-between; align-items: center; margin-top: 25px; padding: 16px 18px; border: 0; background: #214d3b; color: #f4f1e8; cursor: pointer; font: 600 13px ui-monospace, monospace; text-transform: uppercase; letter-spacing: .04em; }
+button:hover:not(:disabled) { background: #32664b; } button:disabled { cursor: wait; opacity: .65; }
+.alert { margin-top: 18px; padding: 12px; background: #f2d6ca; color: #7d3426; font: 13px ui-monospace, monospace; }
+.privacy-note { color: #778279; line-height: 1.45; text-transform: none; letter-spacing: 0; margin: 20px 0 0; }
+.result { display: flex; justify-content: space-between; gap: 40px; max-width: 1120px; margin: 90px auto 0; border-top: 1px solid #87998b; padding-top: 25px; }
+.result h2 { font-size: clamp(27px, 3.5vw, 45px); max-width: 600px; }
+.result-meta { display: flex; flex-wrap: wrap; gap: 20px; align-content: flex-start; min-width: 260px; }
+.result-meta span { display: flex; flex-direction: column; gap: 7px; font: 15px Georgia, serif; }
+.result-meta b { color: #718073; }
+.result-meta em { font-style: normal; color: #346c4b; } .result-meta em.high { color: #a13e2e; }
+@media (max-width: 760px) { .masthead { gap: 20px; } .status-dot { font-size: 9px; } .content-grid { grid-template-columns: 1fr; margin-top: 52px; } .intro h2 { font-size: 47px; } .lede { margin-bottom: 35px; } .result { display: block; margin-top: 60px; } .result-meta { margin-top: 28px; } }
+@media (max-width: 480px) { .field-row { grid-template-columns: 1fr; gap: 19px; } .complaint-form { box-shadow: 7px 9px 0 #cbd3c7; } }
