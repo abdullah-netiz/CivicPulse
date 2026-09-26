@@ -1,0 +1,118 @@
+# =========================
+# Environment / Secrets
+# =========================
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+
+# =========================
+# Python / FastAPI Backend
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+.venv/
+venv/
+env/
+ENV/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+pytestdebug.log
+
+*.egg-info/
+dist/
+build/
+
+# =========================
+# Node / React / Vite Frontend
+# =========================
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/
+.yarn-cache/
+
+dist/
+.vite/
+*.tsbuildinfo
+
+# =========================
+# Test / Coverage
+# =========================
+coverage/
+*.lcov
+
+# =========================
+# IDE / Editors
+# =========================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+.idea/
+*.iml
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+
+# =========================
+# Temporary Files
+# =========================
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# =========================
+# Docker
+# =========================
+.docker/
+
+# =========================
+# Local Kubernetes Files
+# =========================
+.kube/
+*.kubeconfig
+
+# =========================
+# Generated Local Data
+# =========================
+*.sqlite
+*.sqlite3
+*.db
+
+# =========================
+# Local AI Model Data
+# =========================
+ollama_models/
+*.gguf
+
+# =========================
+# Generated Evidence / Reports
+# =========================
+*.png.tmp
+*.jpg.tmp
+*.jpeg.tmp
