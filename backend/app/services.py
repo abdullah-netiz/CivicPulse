@@ -1,9 +1,12 @@
 from time import perf_counter
+import logging
 
 from app.models import Complaint, Status
 from app.providers.triage.base import TriageProvider
 from app.repositories import ComplaintRepository
 from app.schemas import ComplaintCreate
+
+logger = logging.getLogger(__name__)
 
 
 class ComplaintService:
@@ -19,6 +22,7 @@ class ComplaintService:
         except Exception:
             from app.providers.triage.rules import RuleBasedTriage
 
+            logger.warning("Triage fallback activated: provider=%s", provider_name)
             result = await RuleBasedTriage().triage(payload.text, payload.location)
             provider_name = "rules:fallback"
         latency_ms = round((perf_counter() - started) * 1000)

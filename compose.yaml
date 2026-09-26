@@ -35,6 +35,8 @@ services:
       DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://civicpulse:civicpulse@postgres:5432/civicpulse}
       REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
       TRIAGE_PROVIDER: ${TRIAGE_PROVIDER:-simulated}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.8-flash}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8080}
     volumes:
       - ./backend:/app:Z
