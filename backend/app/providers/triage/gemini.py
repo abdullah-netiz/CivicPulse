@@ -10,17 +10,39 @@ from app.providers.triage.base import Category, Priority, TriageResult
 logger = logging.getLogger(__name__)
 
 
+import hashlib
+import json
+from app.providers.cache import CacheProvider
+
+
 class GeminiTriage:
     name = "llm:gemini"
 
-    def __init__(self, api_key: str, model: str, timeout_seconds: float = 10.0):
+    def __init__(
+        self,
+        api_key: str,
+        model: str,
+        timeout_seconds: float = 10.0,
+        cache: CacheProvider | None = None,
+    ):
         if not api_key:
             raise ValueError("GEMINI_API_KEY is required when TRIAGE_PROVIDER=gemini")
         self.api_key = api_key
         self.model = model
         self.timeout_seconds = timeout_seconds
+        self.cache = cache
 
     async def triage(self, text: str, location: str) -> TriageResult:
+        # Rubric §2.5.5: Cache by content hash in Redis, 24 h TTL
+        cache_key = None
+        if self.cache is not None:
+            normalized_content = f"{text.strip().lower()}|{location.strip().lower()}"
+            content_hash = hashlib.sha256(normalized_content.encode("utf-8")).hexdigest()
+            cache_key = f"triage:cache:{content_hash}"
+            cached_json = await self.cache.get(cache_key)
+            if cached_json:
+                return TriageResult.model_validate_json(cached_json)
+
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent"
         request = {
             "systemInstruction": {
@@ -50,7 +72,11 @@ class GeminiTriage:
                 if response.status_code == 429 or response.status_code >= 500:
                     response.raise_for_status()
                 response.raise_for_status()
-                return self._parse_response(response.json())
+                result = self._parse_response(response.json())
+                if self.cache is not None and cache_key is not None:
+                    # 24 h TTL = 86400 seconds
+                    await self.cache.set(cache_key, result.model_dump_json(), expire_seconds=86400)
+                return result
             except (httpx.TimeoutException, httpx.HTTPStatusError, ValueError) as error:
                 last_error = error
                 status_code = error.response.status_code if isinstance(error, httpx.HTTPStatusError) else None
